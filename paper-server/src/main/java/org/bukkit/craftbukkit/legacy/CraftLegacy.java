@@ -44,7 +44,7 @@ public final class CraftLegacy {
     private static final org.slf4j.Logger LOGGER = com.mojang.logging.LogUtils.getLogger(); // Paper - Improve logging and errors
 
     private static final Map<Byte, Material> SPAWN_EGGS = new HashMap<>();
-    private static final Set<String> whitelistedStates = new HashSet<>(Arrays.asList("explode", "check_decay", "decayable", "facing"));
+    private static final Set<String> whitelistedStates = Set.of("explode", "check_decay", "decayable", "facing"); // Paper - Perf: use immutable Set.of instead of HashSet(Arrays.asList)
     private static final Map<MaterialData, Item> materialToItem = new HashMap<>(16384);
     private static final Map<Item, MaterialData> itemToMaterial = new HashMap<>(1024);
     private static final Map<MaterialData, BlockState> materialToData = new HashMap<>(4096);

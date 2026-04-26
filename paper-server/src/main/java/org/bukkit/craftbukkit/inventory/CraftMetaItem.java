@@ -625,7 +625,7 @@ class CraftMetaItem implements ItemMeta, Damageable, Repairable, BlockDataMeta {
 
         Object blockData = SerializableMeta.getObject(Object.class, map, CraftMetaItem.BLOCK_DATA.BUKKIT, true);
         if (blockData != null) {
-            Map<String, String> mapBlockData = new HashMap<>();
+            Map<String, String> mapBlockData = new HashMap<>(4); // Paper - Perf: pre-size map for block data
 
             if (blockData instanceof Map) {
                 for (Entry<?, ?> entry : ((Map<?, ?>) blockData).entrySet()) {
@@ -2229,7 +2229,7 @@ class CraftMetaItem implements ItemMeta, Damageable, Repairable, BlockDataMeta {
             builder.put(CraftMetaItem.MAX_DAMAGE.BUKKIT, this.maxDamage);
         }
 
-        final Map<String, net.minecraft.nbt.Tag> internalTags = new HashMap<>();
+        final Map<String, net.minecraft.nbt.Tag> internalTags = new HashMap<>(8); // Paper - Perf: pre-size map for internal tags
         this.serializeInternal(internalTags);
         if (!internalTags.isEmpty()) {
             CompoundTag internal = new CompoundTag();
