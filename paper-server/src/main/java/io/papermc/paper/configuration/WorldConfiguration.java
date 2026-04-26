@@ -275,10 +275,17 @@ public class WorldConfiguration extends ConfigurationPart {
 
         public Physics physics;
 
+        public ChunkSending chunkSending;
+
         public class Physics extends ConfigurationPart {
             public boolean asyncPhysicsEnabled = false;
             public int physicsThreadPoolSize = 4;
             public List<String> additionalAsyncBlocks = List.of();
+        }
+
+        public class ChunkSending extends ConfigurationPart {
+            public boolean asyncEnabled = false;
+            public int serializationThreadPoolSize = 4;
         }
 
         public Behavior behavior;
