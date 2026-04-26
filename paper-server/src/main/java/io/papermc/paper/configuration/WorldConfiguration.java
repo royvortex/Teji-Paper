@@ -168,6 +168,8 @@ public class WorldConfiguration extends ConfigurationPart {
 
         public Spawning spawning;
 
+        public Physics physics;
+
         public class Spawning extends ConfigurationPart {
             public ArrowDespawnRate nonPlayerArrowDespawnRate = ArrowDespawnRate.def(WorldConfiguration.this.spigotConfig);
             public ArrowDespawnRate creativeArrowDespawnRate = ArrowDespawnRate.def(WorldConfiguration.this.spigotConfig);
@@ -269,6 +271,14 @@ public class WorldConfiguration extends ConfigurationPart {
                 public boolean enabled = false;
                 public Reference2IntMap<Item> items = new Reference2IntOpenHashMap<>(Map.of(Items.COBBLESTONE, 300));
             }
+        }
+
+        public Physics physics;
+
+        public class Physics extends ConfigurationPart {
+            public boolean asyncPhysicsEnabled = false;
+            public int physicsThreadPoolSize = 4;
+            public List<String> additionalAsyncBlocks = List.of();
         }
 
         public Behavior behavior;
