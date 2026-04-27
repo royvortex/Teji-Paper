@@ -1,0 +1,23 @@
+# Teji-Paper Configuration
+# Added by vortexx.0983@gmail.com
+
+# Physics configurations
+physics:
+  async-physics-enabled: false
+  physics-thread-pool-size: 4
+  additional-async-blocks: []
+
+# Chunk sending configurations
+chunk-sending:
+  async-enabled: false
+  serialization-thread-pool-size: 4
+  lazy-scheduling: true
+
+# Network configurations
+network:
+  async-compression-enabled: false
+  compression-threads: 4
+  use-libdeflate: true
+  packet-batching-enabled: false
+  batching-max-delay-ms: 1
+  batching-max-packets: 64

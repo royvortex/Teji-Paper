@@ -39,6 +39,10 @@ public class GlobalConfiguration extends ConfigurationPart {
 
     public ChunkLoadingBasic chunkLoadingBasic;
 
+    // Teji-Paper start - Teji-Paper configuration
+    public TejiPaperConfiguration tejiPaper;
+    // Teji-Paper end - Teji-Paper configuration
+
     public class ChunkLoadingBasic extends ConfigurationPart {
         @Comment("The maximum rate in chunks per second that the server will send to any individual player. Set to -1 to disable this limit.")
         public double playerMaxChunkSendRate = 75.0;

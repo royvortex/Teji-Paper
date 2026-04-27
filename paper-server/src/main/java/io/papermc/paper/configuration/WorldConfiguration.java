@@ -273,9 +273,7 @@ public class WorldConfiguration extends ConfigurationPart {
             }
         }
 
-        public Physics physics;
 
-        public ChunkSending chunkSending;
 
         public class Physics extends ConfigurationPart {
             public boolean asyncPhysicsEnabled = false;
@@ -286,6 +284,16 @@ public class WorldConfiguration extends ConfigurationPart {
         public class ChunkSending extends ConfigurationPart {
             public boolean asyncEnabled = false;
             public int serializationThreadPoolSize = 4;
+            public boolean lazyScheduling = true;
+        }
+
+        public class Network extends ConfigurationPart {
+            public boolean asyncCompressionEnabled = false;
+            public int compressionThreads = 4;
+            public boolean useLibdeflate = true;
+            public boolean packetBatchingEnabled = false;
+            public int batchingMaxDelayMs = 1;
+            public int batchingMaxPackets = 64;
         }
 
         public Behavior behavior;
