@@ -17,7 +17,7 @@ public class PacketCoalescerHandler extends ChannelOutboundHandlerAdapter {
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-        if (msg instanceof ByteBuf buf && io.papermc.paper.configuration.GlobalConfiguration.get().network.packetBatchingEnabled) {
+        if (msg instanceof ByteBuf buf && io.papermc.paper.configuration.GlobalConfiguration.get().tejiPaper.network.packetBatchingEnabled) {
             buffer.add(buf.retain());
             promise.setSuccess(); // Immediate success
             if (shouldFlush()) {
@@ -29,19 +29,21 @@ public class PacketCoalescerHandler extends ChannelOutboundHandlerAdapter {
     }
 
     private boolean shouldFlush() {
-        return buffer.size() >= io.papermc.paper.configuration.GlobalConfiguration.get().network.batchingMaxPackets
-            || System.nanoTime() - lastFlush > io.papermc.paper.configuration.GlobalConfiguration.get().network.batchingMaxDelayMs * 1_000_000L;
+        return buffer.size() >= io.papermc.paper.configuration.GlobalConfiguration.get().tejiPaper.network.batchingMaxPackets
+            || System.nanoTime() - lastFlush > io.papermc.paper.configuration.GlobalConfiguration.get().tejiPaper.network.batchingMaxDelayMs * 1_000_000L;
     }
 
-    private void flush(ChannelHandlerContext ctx) {
+    @Override
+    public void flush(ChannelHandlerContext ctx) throws Exception {
         if (buffer.isEmpty()) return;
         ByteBuf batch = Unpooled.compositeBuffer();
         for (ByteBuf b : buffer) {
-            batch.addComponent(true, b);
+            ((io.netty.buffer.CompositeByteBuf) batch).addComponent(true, b);
         }
         ctx.writeAndFlush(batch);
         buffer.clear();
         lastFlush = System.nanoTime();
+        super.flush(ctx);
     }
 
     @Override

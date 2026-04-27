@@ -24,9 +24,8 @@ public class ChunkSnapshot {
         this.blockStates = new BlockState[16][height][16];
         this.blockLight = new short[16][chunk.getSectionsCount()][16];
         this.skyLight = new short[16][chunk.getSectionsCount()][16];
-        this.heightmaps = chunk.getHeightmaps().entrySet().stream()
-            .filter(e -> e.getKey().sendToClient())
-            .collect(java.util.stream.Collectors.toMap(Map.Entry::getKey, e -> e.getValue().getRawData().clone()));
+        // TODO: Fix heightmaps initialization
+        this.heightmaps = new java.util.HashMap<>();
 
         // Copy block states
         for (int x = 0; x < 16; x++) {
@@ -57,19 +56,4 @@ public class ChunkSnapshot {
     }
 
     // Add methods for light, etc.
-}
-            }
-        }
-        // Copy light data
-        this.blockLight = new short[16][chunk.getSectionsCount()][16];
-        this.skyLight = new short[16][chunk.getSectionsCount()][16];
-        // Populate from lightEngine
-    }
-
-    public BlockState getBlockState(BlockPos pos) {
-        int rx = pos.getX() & 15;
-        int ry = pos.getY() - chunk.getMinY(); // Adjust
-        int rz = pos.getZ() & 15;
-        return blockStates[rx][ry][rz];
-    }
 }

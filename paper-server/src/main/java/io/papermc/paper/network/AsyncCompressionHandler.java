@@ -25,11 +25,11 @@ public class AsyncCompressionHandler extends ChannelOutboundHandlerAdapter {
             buf.retain();
             compressionPool.execute(() -> {
                 try {
-                    ByteBuf compressed = compress(buf);
+                    ByteBuf compressed = compress(ctx, buf);
                     ctx.executor().execute(() -> ctx.write(compressed, promise));
                 } catch (Exception e) {
                     // Fallback sync
-                    ByteBuf compressed = compressSync(buf);
+                    ByteBuf compressed = compressSync(ctx, buf);
                     ctx.executor().execute(() -> ctx.write(compressed, promise));
                 } finally {
                     buf.release();
@@ -40,7 +40,7 @@ public class AsyncCompressionHandler extends ChannelOutboundHandlerAdapter {
         }
     }
 
-    private ByteBuf compress(ByteBuf buf) {
+    private ByteBuf compress(ChannelHandlerContext ctx, ByteBuf buf) {
         Deflater d = deflater.get();
         d.reset();
         // Implement compression logic: read from buf, compress to new ByteBuf
@@ -49,8 +49,8 @@ public class AsyncCompressionHandler extends ChannelOutboundHandlerAdapter {
         return compressed;
     }
 
-    private ByteBuf compressSync(ByteBuf buf) {
+    private ByteBuf compressSync(ChannelHandlerContext ctx, ByteBuf buf) {
         // Synchronous fallback
-        return compress(buf);
+        return compress(ctx, buf);
     }
 }

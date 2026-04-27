@@ -6,11 +6,6 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import java.util.List;
 
 /**
- * Record for block updates from async physics.
- */
-public record BlockUpdate(BlockPos pos, BlockState newState) {}
-
-/**
  * Read-only snapshot of block states for a 3x3 chunk grid (center + neighbors).
  * Used for async physics computations to avoid data races.
  */
