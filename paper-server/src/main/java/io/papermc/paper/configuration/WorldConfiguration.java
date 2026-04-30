@@ -613,4 +613,26 @@ public class WorldConfiguration extends ConfigurationPart {
         	HORIZONTAL_FIRST_OUTWARD, HORIZONTAL_FIRST_INWARD, VERTICAL_FIRST_OUTWARD, VERTICAL_FIRST_INWARD
         }
     }
+
+    public Light light;
+
+    public class Light extends ConfigurationPart {
+        @Comment("Whether async light engine propagation is enabled")
+        public boolean asyncPropagation = false;
+        
+        @Comment("Maximum number of light updates to process per tick on the async thread")
+        public int maxUpdatesPerTick = 1000;
+        
+        @Comment("Thread pool size for async light propagation (0 = auto-detect based on CPU cores)")
+        public int threadPoolSize = 0;
+        
+        @Comment("Whether to use light snapshots for chunk sending (reduces main thread stalls)")
+        public boolean useLightSnapshots = true;
+        
+        @Comment("Maximum queue size for pending light updates before falling back to sync")
+        public int maxQueueSize = 10000;
+        
+        @Comment("Whether to skip light updates for non-light-emitting blocks")
+        public boolean skipNonEmissiveBlocks = true;
+    }
 }
