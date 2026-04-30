@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.papermc.paper.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ServerLevelMixin",
+    "StarLightInterfaceMixin",
+    "LevelLightEngineMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [],
+  "server": []
+}
